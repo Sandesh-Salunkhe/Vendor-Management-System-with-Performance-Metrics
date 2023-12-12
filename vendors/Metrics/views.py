@@ -10,7 +10,7 @@ class Vendor(APIView):
     serializer_class = VendorSerializer
     
     def get_vendor(self, vendor_id):
-        vendor_details = VendorSerializer(vendor_id)
+        vendor_details = Vendor.objects.filter(id=vendor_id)
         return vendor_details
     
     def get(self, request, vendor_id):
@@ -20,8 +20,8 @@ class Vendor(APIView):
         return JsonResponse({'Success': True, 'data': serializer.data})
     
     def get(self, request):
-        
-        all_vendor = VendorSerializer(many=True)
+        all_vendors = Vendor.objects.all()
+        all_vendor = VendorSerializer(all_vendors,many=True)
         
         return JsonResponse({'Success': True, 'data': all_vendor})
     
