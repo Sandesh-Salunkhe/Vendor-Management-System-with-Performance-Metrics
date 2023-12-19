@@ -1,7 +1,7 @@
 from django.http import JsonResponse, response
 from rest_framework.views import APIView
-from .serializers import VendorSerializer
-from .models import Vendor
+from .serializers import VendorSerializer, PurchaseOrderSerializer
+from .models import Vendor, PurchaseOrder
 from django.db import connection 
 from django.shortcuts import get_object_or_404
 
@@ -50,9 +50,28 @@ class VendorDetail(APIView):
         return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
 
 
-class PurchaseOrder(APIView):
+class PurchaseOrderList(APIView):
 
+    serializer_class = PurchaseOrderSerializer
+    
     def get(self, request):
+        po_data = PurchaseOrder.objects.all()
+        seralizer = PurchaseOrderSerializer(po_data, many=True)
+        return JsonResponse({'Success': True, 'data':seralizer.data, 'Message': 'Purchase Orders List.'})
+    
 
-        return response({"Success": True, 'Message': "Purchase Order"})
+#     def post(self, request):
+#         # Your implementation for creating a new vendor
+
+class PurchaseOrderDetail(APIView):
+    serializer_class = PurchaseOrderSerializer
+    
+#     def get(self, request, vendor_id):
+#         # Your implementation for retrieving a specific vendor
+
+#     def put(self, request, vendor_id):
+#         # Your implementation for updating a specific vendor
+
+#     def delete(self, request, vendor_id):
+#         # Your implementation for deleting a specific vendor
 

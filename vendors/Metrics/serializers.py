@@ -15,3 +15,9 @@ class VendorSerializer(serializers.ModelSerializer):
         data['vendor_code'] = obj.vendor_code
         data['on_time_delivery_rate'] = obj.on_time_delivery_rate
         return data
+
+
+class PurchaseOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PurchaseOrder
+        fields = '__all__'
