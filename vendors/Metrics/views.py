@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Response
+from django.http import JsonResponse, response
 from rest_framework.views import APIView
 from .serializers import VendorSerializer
 from .models import Vendor
@@ -33,7 +33,7 @@ class VendorDetail(APIView):
     def put(self, request, vendor_id:int):
         vendor = get_object_or_404(Vendor, id=vendor_id)
 
-        name = request.data.get('name', vendor.name)
+        name = request.data.get('vendor_name', vendor.name)
         contact_details = request.data.get('contact_details', vendor.contact_details)
         address = request.data.get('address', vendor.address)
 
@@ -54,5 +54,5 @@ class PurchaseOrder(APIView):
 
     def get(self, request):
 
-        return Response({"Success": True, 'Message': "Purchase Order"})
+        return response({"Success": True, 'Message': "Purchase Order"})
 
