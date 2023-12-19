@@ -55,17 +55,33 @@ class VendorDetail(APIView):
 
 
 class PurchaseOrderList(APIView):
-
     serializer_class = PurchaseOrderSerializer
+
+    def get_vendor(self, vendor_id):
+        vendor = get_object_or_404(Vendor, id=vendor_id)
+        return vendor
     
     def get(self, request):
         po_data = PurchaseOrder.objects.all()
         seralizer = PurchaseOrderSerializer(po_data, many=True)
         return JsonResponse({'Success': True, 'data':seralizer.data, 'Message': 'Purchase Orders List.'})
     
+    def post(self, request):
+        vendor_id = request.data.get('vendor_id')
+        items = request.data.get('items')
+        order_date = request.data.get('order_date')
+        delivery_date = request.data.get('delivery_date')
+        
+        vendor = self.get_vendor(vendor_id)
 
-#     def post(self, request):
-#         # Your implementation for creating a new vendor
+        po_data = PurchaseOrder()
+        po_data.vendor = vendor
+        po_data.order_date = order_date
+        po_data.delivery_date = delivery_date
+        po_data.items = items
+        po_data.status = 'pending'
+        po_data.save()
+        return JsonResponse({'Success': True, 'Message':'Purchase Order Data Created Succesfully'})
 
 class PurchaseOrderDetail(APIView):
     serializer_class = PurchaseOrderSerializer
