@@ -12,7 +12,7 @@ def update_vendor_on_time_delivery_rate(sender, instance, created, **kwargs):
         
         total_completed_orders = PurchaseOrder.objects.filter(vendor=vendor,status='completed').count()
 
-        on_time_delivery_rate = ()
+        on_time_delivery_rate = (complete_orders / total_completed_orders) * 100 if total_completed_orders != 0 else 100
         vendor.on_time_delivery_rate = on_time_delivery_rate
         vendor.save()
         print("Purchase order created")
