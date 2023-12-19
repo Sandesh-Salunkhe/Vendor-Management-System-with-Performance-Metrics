@@ -1,0 +1,11 @@
+venv
+.env
+__pycash__/
+*.log
+*.pot
+*.pyc
+.idea/*
+db.sqlite3
+**/migrations/*
+!**/migrations
+!**/migrations/__init__.py
