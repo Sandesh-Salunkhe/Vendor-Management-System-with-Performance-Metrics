@@ -26,7 +26,7 @@ class VendorList(APIView):
             return JsonResponse({'Success': True, 'Message': 'Vendor Profile Created Successfully.'})
         return JsonResponse({'Success': False, 'Message': vendor.errors})
            
-           
+
 class VendorDetail(APIView):
     serializer_class = VendorSerializer
 
@@ -39,19 +39,13 @@ class VendorDetail(APIView):
         return JsonResponse({'Success': True, 'data': serializer.data})
 
     def put(self, request, vendor_id: int):
-        vendor = self.get_vendor(vendor_id)
+        vendor = self.get_object(vendor_id)
+        serializer = self.serializer_class(vendor, data=request.data)
 
-        name = request.data.get('vendor_name', vendor.name)
-        contact_details = request.data.get(
-            'contact_details', vendor.contact_details)
-        address = request.data.get('address', vendor.address)
-
-        vendor.name = name
-        vendor.contact_details = contact_details
-        vendor.address = address
-        vendor.save()
-
-        return JsonResponse({'Success': True, 'Message': 'Vendor Profile Updated Successfully.'})
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Updated Successfully.'})
+        return JsonResponse({'Success': False, 'Message': serializer.errors})
 
     def delete(self, request, vendor_id: int):
         remove_vendor = self.get_vendor(vendor_id)
