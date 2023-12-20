@@ -6,6 +6,6 @@ urlpatterns = [
     path('vendors/<int:vendor_id>/', VendorDetail.as_view(), name='vendor-detail'),
 
     # Purchase Order Tracking:
-    path('vendors/', PurchaseOrderList.as_view(), name='order-list'),
-    path('vendors/<int:vendor_id>/', PurchaseOrderDetail.as_view(), name='order-detail'),
+    path('purchase_orders/', PurchaseOrderList.as_view(), name='order-list'),
+    path('purchase_orders/<int:po_id>/', PurchaseOrderDetail.as_view(), name='order-detail'),
 ]

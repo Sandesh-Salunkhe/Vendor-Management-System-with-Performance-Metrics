@@ -58,8 +58,8 @@ class PurchaseOrderList(APIView):
     serializer_class = PurchaseOrderSerializer
 
     def get_vendor(self, vendor_id):
-        vendor = get_object_or_404(Vendor, id=vendor_id)
-        return vendor
+        po_orders = get_object_or_404(PurchaseOrder, vendor_id=vendor_id)
+        return po_orders
     
     def get(self, request):
         po_data = PurchaseOrder.objects.all()
@@ -71,7 +71,7 @@ class PurchaseOrderList(APIView):
         items = request.data.get('items')
         order_date = request.data.get('order_date')
         delivery_date = request.data.get('delivery_date')
-        
+
         vendor = self.get_vendor(vendor_id)
 
         po_data = PurchaseOrder()
