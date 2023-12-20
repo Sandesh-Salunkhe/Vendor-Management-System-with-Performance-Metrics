@@ -52,11 +52,10 @@ class PurchaseOrder(models.Model):
     delivery_date = models.DateTimeField()
     items = models.JSONField()
     quantity = models.IntegerField()
-    status = models.CharField(
-        max_length=50, default=STATUS[0][1], choices=STATUS)
-    quality_rating = models.FloatField(null=True, blank=True)
+    status = models.CharField(max_length=50, default=STATUS[0][1], choices=STATUS)
+    quality_rating = models.FloatField()
     issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField(null=True, blank=True)
+    acknowledgment_date = models.DateTimeField()
 
     def __str__(self):
         return f"PO {self.po_number} - {self.vendor.name}"
