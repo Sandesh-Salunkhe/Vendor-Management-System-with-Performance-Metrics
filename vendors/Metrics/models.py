@@ -53,9 +53,9 @@ class PurchaseOrder(models.Model):
     items = models.JSONField()
     quantity = models.IntegerField()
     status = models.CharField(max_length=50, default=STATUS[0][1], choices=STATUS)
-    quality_rating = models.FloatField()
-    issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField()
+    quality_rating = models.FloatField(default=None, null=True)
+    issue_date = models.DateTimeField(default=None, null=True)
+    acknowledgment_date = models.DateTimeField(default=None, null=True)
 
     def __str__(self):
         return f"PO {self.po_number} - {self.vendor.name}"
