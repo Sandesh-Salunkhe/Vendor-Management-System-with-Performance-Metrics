@@ -9,25 +9,38 @@ class VendorList(APIView):
     serializer_class = VendorSerializer
     
     def get(self, request):
-        all_vendors = Vendor.objects.all()
-        vendors_data = VendorSerializer(all_vendors, many=True)
-        return JsonResponse({'Success': True, 'data': vendors_data.data})
+        try:
+            all_vendors = Vendor.objects.all()
+            vendors_data = VendorSerializer(all_vendors, many=True)
+            return JsonResponse({'Success': True, 'data': vendors_data.data})
+        except :
+            return JsonResponse({'Success': False, 'data': 'Vendors Not Found.'})
 
     def post(self, request):
         vendor_name = request.data.get('vendor_name')
         contact_details = request.data.get('contact_details')
         address = request.data.get('address')
         
-        vendor_creation = Vendor.objects.create(name=vendor_name, contact_details=contact_details, address=address)
-        
-        return JsonResponse({'Success': True, 'Message': 'Vendor Profile Created Successfully.'})
+        try:
+            vendor, created = Vendor.objects.get_or_create(
+                name=vendor_name,
+                contact_details=contact_details,
+                address=address
+            )
 
+            if created:
+                return JsonResponse({'Success': True, 'Message': 'Vendor Profile Created Successfully.'})
+            else:
+                return JsonResponse({'Success': False, 'Message': 'Vendor Profile Already Exists.'})
+
+        except Exception as e:
+            return JsonResponse({'Success': False, 'Message': f'Error: {str(e)}'})
+        
 class VendorDetail(APIView):
     serializer_class = VendorSerializer
 
     def get_vendor(self, vendor_id):
-        vendor = get_object_or_404(Vendor, id=vendor_id)
-        return vendor
+        return get_object_or_404(Vendor, id=vendor_id)
     
     def get(self, request, vendor_id:int):
         vendor = self.get_vendor(vendor_id)
@@ -47,11 +60,15 @@ class VendorDetail(APIView):
         vendor.save()
 
         return JsonResponse({'Success': True, 'Message': 'Vendor Profile Updated Successfully.'})
-    
+
     def delete(self, request, vendor_id:int):
         remove_vendor = self.get_vendor(vendor_id)
-        remove_vendor.delete()
-        return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
+
+        if remove_vendor:
+            remove_vendor.delete()
+            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
+        else:
+            return JsonResponse({'Success': False, 'Message': 'Vendor Profile Not Found.'}, status=404)
 
 
 class PurchaseOrderList(APIView):
