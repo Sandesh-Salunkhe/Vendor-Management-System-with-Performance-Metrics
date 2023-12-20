@@ -5,7 +5,7 @@ from .models import *
 
 @admin.register(Vendor)
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'contact_details', 'address','on_time_delivery_rate','vendor_code')
+    list_display = ('id','name', 'contact_details', 'address','on_time_delivery_rate','vendor_code')
     readonly_fields = ('vendor_code','on_time_delivery_rate')
 
 

@@ -75,13 +75,12 @@ class PurchaseOrderList(APIView):
     serializer_class = PurchaseOrderSerializer
 
     def get_vendor(self, vendor_id):
-        po_orders = get_object_or_404(PurchaseOrder, vendor_id=vendor_id)
-        return po_orders
+        return get_object_or_404(Vendor, id=vendor_id)
     
     def get(self, request):
         po_data = PurchaseOrder.objects.all()
-        seralizer = PurchaseOrderSerializer(po_data, many=True)
-        return JsonResponse({'Success': True, 'data':seralizer.data, 'Message': 'Purchase Orders List.'})
+        serializer = PurchaseOrderSerializer(po_data, many=True)
+        return JsonResponse({'Success': True, 'data': serializer.data, 'Message': 'Purchase Orders List.'})
     
     def post(self, request):
         vendor_id = request.data.get('vendor_id')
@@ -91,14 +90,19 @@ class PurchaseOrderList(APIView):
 
         vendor = self.get_vendor(vendor_id)
 
-        po_data = PurchaseOrder()
-        po_data.vendor = vendor
-        po_data.order_date = order_date
-        po_data.delivery_date = delivery_date
-        po_data.items = items
-        po_data.status = 'pending'
-        po_data.save()
-        return JsonResponse({'Success': True, 'Message':'Purchase Order Data Created Succesfully'})
+        if vendor:
+            po_data = PurchaseOrder(
+                vendor=vendor,
+                order_date=order_date,
+                delivery_date=delivery_date,
+                items=items,
+                status='pending'
+            )
+            po_data.save()
+
+            return JsonResponse({'Success': True, 'Message': 'Purchase Order Data Created Successfully'})
+        else:
+            return JsonResponse({'Success': False, 'Message': 'Vendor not found.'}, status=404)
 
 class PurchaseOrderDetail(APIView):
     serializer_class = PurchaseOrderSerializer
