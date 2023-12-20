@@ -80,11 +80,28 @@ class PurchaseOrderList(APIView):
 class PurchaseOrderDetail(APIView):
     serializer_class = PurchaseOrderSerializer
 
-#     def get(self, request, vendor_id):
-#         # Your implementation for retrieving a specific vendor
+    def get_po(self, po_id):
+        return get_object_or_404(PurchaseOrder, id=po_id)
 
-#     def put(self, request, vendor_id):
-#         # Your implementation for updating a specific vendor
+    def get(self, request, po_id):
+        po_order = self.get_po(po_id) 
+        serialiser = self.serializer_class(po_order)
+        return Response({'Success': True,'data':serialiser.data, 'Message': 'Purchase Order Data Created Successfully'})
+        
+    def put(self, request, po_id):
+        po_order = self.get_object(po_id)
+        serializer = self.serializer_class(po_order, data=request.data)
 
-#     def delete(self, request, vendor_id):
-#         # Your implementation for deleting a specific vendor
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Updated Successfully.'})
+        return JsonResponse({'Success': False, 'Message': serializer.errors})
+
+    def delete(self, request, po_id):
+        po_order = self.get_object(po_id)
+        
+        if po_order:
+            po_order.delete()
+            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
+        else:
+            return Response({'Success': False, 'Message': 'Vendor Profile Not Found.'}, status=404)

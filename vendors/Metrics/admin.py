@@ -11,8 +11,8 @@ class VendorAdmin(admin.ModelAdmin):
 
 @admin.register(PurchaseOrder)
 class PurchaseOrderAdmin(admin.ModelAdmin):
-    list_display = ('po_number','vendor','order_date','delivery_date','items','quantity')
-    readonly_fields = ('po_number',)
+    list_display = ('id','po_number','vendor','order_date','delivery_date','items','quantity')
+    readonly_fields = ('id','po_number',)
     
 @admin.register(HistoricalPerformance)
 class HistoricalPerformanceAdmin(admin.ModelAdmin):
