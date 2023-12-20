@@ -8,7 +8,7 @@ class VendorSerializer(serializers.ModelSerializer):
 
     class Meta:
        model = Vendor
-       fields = ('name','contact_details','address',)
+       fields = ('id','name','contact_details','address',)
        
     def to_representation(self, obj):
         data = super(VendorSerializer, self).to_representation(obj)

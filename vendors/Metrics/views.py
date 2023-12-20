@@ -85,7 +85,10 @@ class PurchaseOrderList(APIView):
     def post(self, request):
         vendor_id = request.data.get('vendor_id')
         items = request.data.get('items')
+        quantity = request.data.get('quantity')
         order_date = request.data.get('order_date')
+        issue_date = request.data.get('issue_date')
+        acknowledgment_date = request.data.get('acknowledgment_date')
         delivery_date = request.data.get('delivery_date')
 
         vendor = self.get_vendor(vendor_id)
@@ -95,7 +98,10 @@ class PurchaseOrderList(APIView):
                 vendor=vendor,
                 order_date=order_date,
                 delivery_date=delivery_date,
+                acknowledgment_date=acknowledgment_date,
+                issue_date=issue_date,
                 items=items,
+                quantity=quantity,
                 status='pending'
             )
             po_data.save()
