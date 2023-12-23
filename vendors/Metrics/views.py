@@ -105,3 +105,9 @@ class PurchaseOrderDetail(APIView):
             return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
         else:
             return Response({'Success': False, 'Message': 'Vendor Profile Not Found.'}, status=404)
+
+
+class HistoricalPerformance(APIView):
+    
+    def get(self, request):
+        return None

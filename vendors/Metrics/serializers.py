@@ -19,3 +19,9 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrder
         fields = '__all__'
+        
+
+class HistoricalSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = HistoricalPerformance
+        fields = ('id','vendor','date','on_time_delivery_rate', 'quality_rating_avg' )
