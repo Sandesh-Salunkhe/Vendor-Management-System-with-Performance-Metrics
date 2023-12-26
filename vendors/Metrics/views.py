@@ -89,22 +89,34 @@ class PurchaseOrderDetail(APIView):
         return Response({'Success': True,'data':serialiser.data, 'Message': 'Purchase Order Data Created Successfully'})
         
     def put(self, request, po_id):
-        po_order = self.get_object(po_id)
+        po_order = self.get_po(po_id)
         serializer = self.serializer_class(po_order, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Updated Successfully.'})
+            return JsonResponse({'Success': True, 'Message': 'Purchase Order Data Updated Successfully.'})
+        return JsonResponse({'Success': False, 'Message': serializer.errors})
+    
+    def patch(self, request, po_id):
+        po_order = self.get_po(po_id)
+        serializer = self.serializer_class(po_order, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'Success': True, 'Message': 'Purchase Order Data Updated Successfully.'})
         return JsonResponse({'Success': False, 'Message': serializer.errors})
 
     def delete(self, request, po_id):
-        po_order = self.get_object(po_id)
-        
+        po_order = self.get_po(po_id)
+
         if po_order:
             po_order.delete()
-            return JsonResponse({'Success': True, 'Message': 'Vendor Profile Deleted Successfully.'})
+            return JsonResponse({'Success': True, 'Message': 'Purchase Order Data Deleted Successfully.'})
         else:
-            return Response({'Success': False, 'Message': 'Vendor Profile Not Found.'}, status=404)
+            return Response({'Success': False, 'Message': 'Purchase Order Not Found.'}, status=404)
+
+
+
 
 
 class HistoricalPerformance(APIView):
