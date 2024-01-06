@@ -1,7 +1,7 @@
 venv
 env
 .env
-__pycash__/
+__pycache__/
 *.log
 *.pot
 *.pyc
