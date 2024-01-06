@@ -1,10 +1,20 @@
 from django.http import JsonResponse
-from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.generics import ListCreateAPIView
 from .serializers import VendorSerializer, PurchaseOrderSerializer
 from .models import Vendor, PurchaseOrder
 from django.db import connection
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+
+
+
+def dashboard_view(request):
+    # Your dashboard logic here
+    return render(request, 'index.html', context={'key': 'value'})
+
 
 # Vendor Logic Start Here
 class VendorList(APIView):
