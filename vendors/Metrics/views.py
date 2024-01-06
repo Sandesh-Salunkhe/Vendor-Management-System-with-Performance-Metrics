@@ -6,7 +6,7 @@ from .models import Vendor, PurchaseOrder
 from django.db import connection
 from django.shortcuts import get_object_or_404
 
-
+# Vendor Logic Start Here
 class VendorList(APIView):
     serializer_class = VendorSerializer
 
@@ -57,14 +57,16 @@ class VendorDetail(APIView):
             return Response({'Success': False, 'Message': 'Vendor Profile Not Found.'}, status=404)
 
 
+# Purchase Order Logic Start Here
 class PurchaseOrderList(APIView):
     serializer_class = PurchaseOrderSerializer
 
-    def get_vendor(self, vendor_id):
-        return get_object_or_404(Vendor, id=vendor_id)
+    def get_po(self,):
+        po_data = PurchaseOrder.objects.all()
+        return po_data
 
     def get(self, request):
-        po_data = PurchaseOrder.objects.all()
+        po_data = self.get_po()
         serializer = PurchaseOrderSerializer(po_data, many=True)
         return JsonResponse({'Success': True, 'data': serializer.data, 'Message': 'Purchase Orders List.'})
 
@@ -118,7 +120,7 @@ class PurchaseOrderDetail(APIView):
 
 
 
-
+# Historical Performance Logic Start Here
 class HistoricalPerformance(APIView):
     
     def get(self, request):
