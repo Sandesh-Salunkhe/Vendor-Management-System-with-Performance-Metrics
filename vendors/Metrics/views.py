@@ -122,4 +122,4 @@ class PurchaseOrderDetail(APIView):
 class HistoricalPerformance(APIView):
     
     def get(self, request):
-        return None
+        return JsonResponse({'Success': True, 'Message': 'Retrived All Historical Data Successfully.'})
