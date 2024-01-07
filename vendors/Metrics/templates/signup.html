@@ -1,0 +1,41 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block body_content %}
+
+<div class='container-fluid bg-light page-heading'>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="{% static 'assets/images/signup-image.png' %}" style="width: 80%;" />
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-center align-items-center">
+            <form class='bg-white section-heading' style="width: 400px; max-width: 90%; border: 1px solid #ccc; border-radius: 5px; padding: 30px 20px">
+                <h2 class='text-center'>Sign Up</h2>
+                <hr />
+                <div class="mb-3">
+                    <label htmlFor="first_name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="first_name" name='first_name' />
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='username' />
+                </div>
+                <div>
+                    <label htmlFor="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1"  name='password' />
+                </div>
+                <div class="my-4 main-button">
+                    <a class="text-white">Submit</a>
+                </div>
+            </form>
+            </div>
+
+        </div>
+    </div>        
+  </div>
+
+{% endblock %}

@@ -15,6 +15,22 @@ def dashboard_view(request):
     # Your dashboard logic here
     return render(request, 'index.html', context={'key': 'value'})
 
+def faqs_view(request):
+    # Your dashboard logic here
+    return render(request, 'faqs.html', context={'key': 'value'})
+
+def about_view(request):
+    # Your dashboard logic here
+    return render(request, 'about.html', context={'key': 'value'})
+
+def login_view(request):
+    # Your dashboard logic here
+    return render(request, 'login.html', context={'key': 'value'})
+
+def signup_view(request):
+    # Your dashboard logic here
+    return render(request, 'signup.html', context={'key': 'value'})
+
 
 # Vendor Logic Start Here
 class VendorList(APIView):
