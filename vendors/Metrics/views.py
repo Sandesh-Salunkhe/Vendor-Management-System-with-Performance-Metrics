@@ -13,7 +13,7 @@ from django.shortcuts import render
 
 def dashboard_view(request):
     # Your dashboard logic here
-    return render(request, 'index.html', context={'key': 'value'})
+    return render(request, 'landing-page.html', context={'key': 'value'})
 
 
 # Vendor Logic Start Here
