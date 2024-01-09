@@ -1,25 +1,26 @@
 {% load static %}
 
+{% block body_content %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'static/img/apple-icon.png' %} ">
-  <link rel="icon" type="image/png" href="{% static 'static/img/favicon.png' %} ">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static '/img/apple-icon.png' %}' %} ">
+  <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %} ">
   <title>
-    Blk• Design System by Creative Tim
+    Drop•Trope
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="{% static 'static/css/nucleo-icons.css' %} " rel="stylesheet" />
+  <link href="{% static '/css/nucleo-icons.css' %} " rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="{% static 'static/css/blk-design-system.css?v=1.0.0' %} " rel="stylesheet" />
+  <link href="{% static '/css/blk-design-system.css' %} " rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="{% static 'static/demo/demo.css' %}"  rel="stylesheet" />
+  <link href="{% static '/demo/demo.css' %}"  rel="stylesheet" />
 </head>
 
 <body class="landing-page">
@@ -28,7 +29,7 @@
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="https://demos.creative-tim.com/blk-design-system/index.html" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-          <span>BLK•</span> Design System
+          <span>Drop•Trope</span> Design System
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar bar1"></span>
@@ -41,7 +42,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a>
-                BLK•
+                Drop•Trope
               </a>
             </div>
             <div class="col-6 collapse-close text-right">
@@ -83,12 +84,12 @@
   <!-- End Navbar -->
   <div class="wrapper">
     <div class="page-header">
-      <img src="{% static "/static/img/blob.png" %}" class="path">
-      <img src="{% static "/static/img/path2.png" %}" class="path2">
-      <img src="{% static "/static/img/triunghiuri.png" %}" class="shapes triangle">
-      <img src="{% static "/static/img/waves.png" %}" class="shapes wave">
-      <img src="{% static "/static/img/patrat.png" %}" class="shapes squares">
-      <img src="{% static "/static/img/cercuri.png" %}" class="shapes circle">
+      <img src="{% static "/img/blob.png" %}" class="path">
+      <img src="{% static "/img/path2.png" %}" class="path2">
+      <img src="{% static "/img/triunghiuri.png" %}" class="shapes triangle">
+      <img src="{% static "/img/waves.png" %}" class="shapes wave">
+      <img src="{% static "/img/patrat.png" %}" class="shapes squares">
+      <img src="{% static "/img/cercuri.png" %}" class="shapes circle">
       <div class="content-center">
         <div class="row row-grid justify-content-between align-items-center text-left">
           <div class="col-lg-6 col-md-6">
@@ -99,7 +100,7 @@
             <p class="text-white mb-3">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel...</p>
             <div class="btn-wrapper mb-3">
               <p class="category text-success d-inline">From 9.99%/mo</p>
-              <a href="#blk" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+              <a href="#Welcome" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
             </div>
             <div class="btn-wrapper">
               <div class="button-container">
@@ -116,14 +117,14 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-5">
-            <img src="../assets/img/etherum.png" alt="Circle image" class="img-fluid">
+            <img src="{% static '/img/etherum.png' %}" alt="Circle image" class="img-fluid">
           </div>
         </div>
       </div>
     </div>
     <section class="section section-lg">
       <section class="section">
-        <img src="../assets/img/path4.png" class="path">
+        <img src="{% static '/img/path4.png' %}" class="path">
         <div class="container">
           <div class="row row-grid justify-content-between">
             <div class="col-md-5 mt-lg-5">
@@ -228,9 +229,9 @@
       </section>
     </section>
     <section class="section section-lg">
-      <img src="../assets/img/path4.png" class="path">
-      <img src="../assets/img/path5.png" class="path2">
-      <img src="../assets/img/path2.png" class="path3">
+      <img src="{% static '/img/path4.png' %}" class="path">
+      <img src="{% static '/img/path5.png' %}" class="path2">
+      <img src="{% static '/img/path2.png' %}" class="path3">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-12">
@@ -272,11 +273,11 @@
       </div>
     </section>
     <section class="section section-lg section-safe">
-      <img src="../assets/img/path5.png" class="path">
+      <img src="{% static '/img/path5.png' %}" class="path">
       <div class="container">
         <div class="row row-grid justify-content-between">
           <div class="col-md-5">
-            <img src="../assets/img/chester-wade.jpg" class="img-fluid floating">
+            <img src="{% static '/img/chester-wade.jpg' %}" class="img-fluid floating">
             <div class="card card-stats bg-danger">
               <div class="card-body">
                 <div class="justify-content-center">
@@ -351,15 +352,15 @@
       </div>
     </section>
     <section class="section section-lg">
-      <img src="../assets/img/path4.png" class="path">
-      <img src="../assets/img/path2.png" class="path2">
+      <img src="{% static '/img/path4.png' %}" class="path">
+      <img src="{% static '/img/path2.png' %}" class="path2">
       <div class="col-md-12">
         <div class="card card-chart card-plain">
           <div class="card-header">
             <div class="row">
               <div class="col-sm-6 text-left">
                 <hr class="line-primary">
-                <h5 class="card-category">Total Investments</h5>
+                {% comment %} <h5 class="card-category">Total Investments</h5> {% endcomment %}
                 <h2 class="card-title">Performance</h2>
               </div>
             </div>
@@ -373,7 +374,7 @@
       </div>
     </section>
     <section class="section section-lg section-coins">
-      <img src="../assets/img/path3.png" class="path">
+      <img src="{% static '/img/path3.png' %}" class="path">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
@@ -387,7 +388,7 @@
           <div class="col-md-4">
             <div class="card card-coin card-plain">
               <div class="card-header">
-                <img src="../assets/img/bitcoin.png" class="img-center img-fluid">
+                <img src="{% static '/img/bitcoin.png' %}" class="img-center img-fluid">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -413,7 +414,7 @@
           <div class="col-md-4">
             <div class="card card-coin card-plain">
               <div class="card-header">
-                <img src="../assets/img/etherum.png" class="img-center img-fluid">
+                <img src="{% static '/img/etherum.png' %}" class="img-center img-fluid">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -439,7 +440,7 @@
           <div class="col-md-4">
             <div class="card card-coin card-plain">
               <div class="card-header">
-                <img src="../assets/img/ripp.png" class="img-center img-fluid">
+                <img src="{% static '/img/ripp.png' %}" class="img-center img-fluid">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -469,7 +470,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <h1 class="title">BLK•</h1>
+            <h1 class="title">Drop•Trope</h1>
           </div>
           <div class="col-md-3">
             <ul class="nav">
@@ -538,29 +539,31 @@
     </footer>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="{% static '/js/core/jquery.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/js/core/popper.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+  <script src="{% static '/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
   <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-  <script src="../assets/js/plugins/bootstrap-switch.js"></script>
+  <script src="{% static '/js/plugins/bootstrap-switch.js' %}"></script>
   <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-  <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+  <script src="{% static '/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="{% static '/js/plugins/chartjs.min.js' %}"></script>
   <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-  <script src="../assets/js/plugins/moment.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+  <script src="{% static '/js/plugins/moment.min.js' %}"></script>
+  <script src="{% static '/js/plugins/bootstrap-datetimepicker.js' %}" type="text/javascript"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="{% static '/demo/demo.js' %}"></script>
   <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/blk-design-system.min.js?v=1.0.0" type="text/javascript"></script>
+  <script src="{% static '/js/blk-design-system.min.js' %}?v=1.0.0" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js' %}
       demo.initLandingPageChart();
     });
   </script>
 </body>
 
 </html>
+
+{% endblock %}
