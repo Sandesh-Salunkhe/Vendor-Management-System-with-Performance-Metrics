@@ -5,7 +5,7 @@ urlpatterns = [
     path('faqs/', faqs_view, name='faqs'),
     path('about/', about_view, name='about'),
     path('login/', login_view, name='login'),
-    path('sign-up/', signup_view, name='signup'),
+    path('sign_up/', signup_view, name='signup'),
 
 
     #  Vendor Profile Management:
