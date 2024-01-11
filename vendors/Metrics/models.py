@@ -1,9 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import random
 import string
 import time
 import uuid
 # Create your models here.
+
+
+class VendorUser(AbstractUser):
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    password = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.username
 
 
 def generate_vendor_code():
@@ -52,7 +62,8 @@ class PurchaseOrder(models.Model):
     delivery_date = models.DateTimeField()
     items = models.JSONField()
     quantity = models.IntegerField()
-    status = models.CharField(max_length=50, default=STATUS[0][1], choices=STATUS)
+    status = models.CharField(
+        max_length=50, default=STATUS[0][1], choices=STATUS)
     quality_rating = models.FloatField(default=None, null=True)
     issue_date = models.DateTimeField(default=None, null=True)
     acknowledgment_date = models.DateTimeField(default=None, null=True)
