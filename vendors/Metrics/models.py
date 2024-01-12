@@ -6,12 +6,34 @@ import time
 import uuid
 # Create your models here.
 
+PLAN = (
+    ("BASIC,", "Basic"),
+    ("PRO,", "Pro"),
+    ("ENTERPRISE", "Enterprise")
+)
 
-class VendorUser(AbstractUser):
-    name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255)
-    
+
+class SubscriptionPlan(models.Model):
+    name = models.CharField(max_length=50, default=PLAN[0][1], choices=PLAN)
+    purchased_at = models.DateTimeField(auto_now_add=True)
+    duration = models.DurationField()
+    expired_at = models.DateTimeField(auto_now_add=True)
+    payment = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
+class CustomUser(AbstractUser):
+    company_name = models.CharField(max_length=255, null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profile_pics/', null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    subscription_plan = models.ForeignKey(
+        SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
+
     def __str__(self):
         return self.username
 
@@ -26,7 +48,7 @@ def generate_vendor_code():
 
 
 class Vendor(models.Model):
-    name = models.CharField(max_length=255)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
     contact_details = models.TextField()
     address = models.TextField()
     vendor_code = models.CharField(
@@ -38,6 +60,8 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 STATUS = (

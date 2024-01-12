@@ -1,13 +1,28 @@
-venv
-env
-.env
-__pycache__/
-*.log
-*.pot
+# Ignore virtual environments
+venv/
+env/
+.env/
+
+# Ignore Python compiled files
 *.pyc
-.idea/*
+*.pyo
+__pycache__/
+
+# Ignore IDE-specific files and directories
+.idea/
+
+# Ignore database file
 db.sqlite3
+
+# Ignore log files
+*.log
+
+# Ignore translation files
+*.pot
+
+# Exclude all migrations except __init__.py
 **/migrations/*
-!**/migrations
 !**/migrations/__init__.py
+
+# Exclude specific files
 urls.cpython-310.pyc

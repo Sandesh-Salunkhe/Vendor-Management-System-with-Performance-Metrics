@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 ]
 
-AUTH_USER_MODEL = 'Metrics.VendorUser'
+AUTH_USER_MODEL = 'Metrics.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
