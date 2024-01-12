@@ -29,7 +29,7 @@ def login_view(request):
 
 def signup_view(request):
     # Your dashboard logic here
-    return render(request, 'signup.html', context={'key': 'value'})
+    return render(request, 'register-page.html', context={'key': 'value'})
 
 
 # Vendor Logic Start Here
