@@ -540,7 +540,7 @@ mark,
 }
 
 .img-fluid {
-  max-width: 100%;
+  max-width: max-content;
   height: auto;
 }
 
@@ -18556,7 +18556,7 @@ hr.line-deafult {
 }
 
 .landing-page .content-center img {
-  height: 300px;
+  height: 450px;
 }
 
 .header-filter {
