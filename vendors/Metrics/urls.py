@@ -9,7 +9,7 @@ urlpatterns = [
     path('faqs/', faqs_view, name='faqs'),
     path('about/', about_view, name='about'),
     # path('login/', TokenObtainPairView, name='login'),
-    path('sign_up/', signup_view, name='signup'),
+     path('register/', UserRegistrationView.as_view(), name='user-registration'),
 
 
     #  Vendor Profile Management:

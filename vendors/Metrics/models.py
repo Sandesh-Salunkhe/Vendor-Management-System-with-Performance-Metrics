@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+import datetime
 import random
 import string
 import time
@@ -16,18 +18,29 @@ PLAN = (
 class SubscriptionPlan(models.Model):
     name = models.CharField(max_length=50, default=PLAN[0][1], choices=PLAN)
     purchased_at = models.DateTimeField(auto_now_add=True)
-    duration = models.DurationField()
+    duration_months = models.IntegerField()
     expired_at = models.DateTimeField(auto_now_add=True)
     payment = models.BooleanField(default=False)
 
+
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.duration_months} months"
+
+    def save(self, *args, **kwargs):
+        # Set the expired_at field based on the current time and duration
+        if not self.expired_at:
+            self.expired_at = timezone.now() + datetime.timedelta(
+                days=30.44 * self.duration_months
+            )
+        super().save(*args, **kwargs)
 
 
 class CustomUser(AbstractUser):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
     company_name = models.CharField(max_length=255, null=True, blank=True)
-    profile_picture = models.ImageField(
-        upload_to='profile_pics/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
@@ -35,31 +48,23 @@ class CustomUser(AbstractUser):
         SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.email
 
 
-def generate_vendor_code():
-    timestamp = str(int(time.time()))
-    random_chars = ''.join(random.choices(
-        string.ascii_uppercase+string.ascii_lowercase, k=6))
-    if Vendor.objects.filter(vendor_code=timestamp+random_chars).exists():
-        return generate_vendor_code
-    return timestamp+random_chars
 
 
 class Vendor(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, )
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     contact_details = models.TextField()
     address = models.TextField()
-    vendor_code = models.CharField(
-        max_length=50, unique=True, default=generate_vendor_code)
+    vendor_code = models.CharField(max_length=50, unique=True)
     on_time_delivery_rate = models.FloatField(default=None, null=True)
     quality_rating_avg = models.FloatField(default=None, null=True)
     average_response_time = models.FloatField(default=None, null=True)
     fulfillment_rate = models.FloatField(default=None, null=True)
 
     def __str__(self):
-        return self.name
+        return self.user
 
 
 

@@ -2,8 +2,9 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView
-from .serializers import VendorSerializer, PurchaseOrderSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.generics import ListCreateAPIView, CreateAPIView
+from .serializers import VendorSerializer, PurchaseOrderSerializer, CustomUserSerializer
 from .models import Vendor, PurchaseOrder
 from django.db import connection
 from django.shortcuts import get_object_or_404
@@ -27,9 +28,26 @@ def login_view(request):
     # Your dashboard logic here
     return render(request, 'login.html', context={'key': 'value'})
 
-def signup_view(request):
-    # Your dashboard logic here
-    return render(request, 'register-page.html', context={'key': 'value'})
+
+class UserRegistrationView(CreateAPIView):
+    serializer_class = CustomUserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = serializer.save()
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        
+        context = {
+            'access_token': access_token,
+            'user': CustomUserSerializer(user).data,
+        }
+
+        return Response(context, status = status.HTTP_201_CREATED)
 
 
 # Vendor Logic Start Here
