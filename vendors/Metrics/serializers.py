@@ -5,7 +5,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'email', 'password']
+        fields = ['username', 'email', 'password']
         
     # The create method is overridden to handle the password hashing and user creation.
     def create(self, validated_data):

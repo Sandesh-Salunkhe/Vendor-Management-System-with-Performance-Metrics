@@ -36,8 +36,7 @@ class SubscriptionPlan(models.Model):
 
 
 class CustomUser(AbstractUser):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=80, unique=True)
     email = models.EmailField(max_length=100)
     company_name = models.CharField(max_length=255, null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
@@ -48,7 +47,7 @@ class CustomUser(AbstractUser):
         SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.email
+        return self.username
 
 
 
