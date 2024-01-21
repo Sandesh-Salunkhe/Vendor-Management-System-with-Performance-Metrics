@@ -19,4 +19,5 @@ urlpatterns = [
     # Purchase Order Tracking:
     path('purchase_orders/', PurchaseOrderList.as_view(), name='order-list'),
     path('purchase_orders/<int:po_id>/', PurchaseOrderDetail.as_view(), name='order-detail'),
+    
 ]

@@ -14,7 +14,7 @@ from django.shortcuts import render
 
 def dashboard_view(request):
     # Your dashboard logic here
-    return render(request, 'landing-page.html', context={'key': 'value'})
+    return render(request, 'index.html', context={'key': 'value'})
 
 def faqs_view(request):
     # Your dashboard logic here
@@ -28,6 +28,9 @@ def login_view(request):
     # Your dashboard logic here
     return render(request, 'login.html', context={'key': 'value'})
 
+def register_page(request):
+    # Your dashboard logic here
+    return render(request, 'register-page.html', context={'key': 'value'})
 
 class UserRegistrationView(CreateAPIView):
     serializer_class = CustomUserSerializer
