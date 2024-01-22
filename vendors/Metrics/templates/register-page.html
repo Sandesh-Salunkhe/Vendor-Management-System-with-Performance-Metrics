@@ -108,11 +108,11 @@
     if (bool) {
       const form_data = new FormData()
 
-      form_data.append("first_name", first_name)
+      form_data.append("username", first_name)
       form_data.append("email", email)
       form_data.append("password", password)
       $.ajax({
-        url: "/",
+        url: "{% url 'user-registration' %}",
         method: "POST",
         processData: false,
         contentType: false,
