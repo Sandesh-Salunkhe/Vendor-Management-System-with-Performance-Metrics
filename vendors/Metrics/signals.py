@@ -1,7 +1,9 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from .models import PurchaseOrder, Vendor
+from .models import PurchaseOrder, Vendor, CustomUser, SubscriptionPlan
 import time
+from django.utils import timezone
+import datetime
 import random
 import string
 
@@ -22,6 +24,21 @@ def update_vendor_on_time_delivery_rate(sender, instance, **kwargs):
         vendor.save()
     print("Signals -->> Purchase order created")
     
+
+# @receiver(pre_save, sender=CustomUser)
+# def set_expired_at(sender, instance, *args, **kwargs):
+      
+#     if kwargs.get('created', False):
+
+#         instance.subscription_plan.name = SubscriptionPlan.objects.get(name="Free Plan")
+#         instance.purchased_at = timezone.now()
+#         instance.expired_at = timezone.now() + datetime.timedelta(days=7)
+
+#     elif kwargs.get('update_fields', None):
+
+#         instance.expired_at = timezone.now() + datetime.timedelta(
+#             days=30.44 * instance.duration_months
+#         )
 
 
 @receiver(pre_save, sender=Vendor)

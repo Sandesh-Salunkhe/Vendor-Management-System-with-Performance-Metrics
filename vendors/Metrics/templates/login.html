@@ -57,4 +57,57 @@
   </div>
   
 </div>
+
+<script>
+  function registerUser () {
+    
+    var first_name = $("#first_name").val()
+    var email = $("#email").val()
+    var password = $("#password").val()
+    var bool = true
+    if (first_name == "") {
+      bool = false
+      $("#first_name_val").html("Please enter your first name") 
+    } else {
+      $("#first_name_val").html("") 
+    }
+
+    if (email == "") {
+      bool = false
+      $("#email_val").html("Please enter your email ID") 
+    } else {
+      $("#email_val").html("") 
+    }
+
+    if (password == "") {
+      bool = false
+      $("#password_val").html("Please enter a password") 
+    } else {
+      $("#password_val").html("")
+    }
+
+    if (bool) {
+      const form_data = new FormData()
+
+      form_data.append("username", first_name)
+      form_data.append("email", email)
+      form_data.append("password", password)
+      $.ajax({
+        url: "{% url 'user-registration' %}",
+        method: "POST",
+        processData: false,
+        contentType: false,
+        data: form_data
+      })
+      .then((resp) => {
+        console.log(resp)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+    
+  }
+</script>
+
 {% endblock %}

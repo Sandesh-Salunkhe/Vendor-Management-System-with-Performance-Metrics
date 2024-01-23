@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,21 +9,14 @@ from .serializers import VendorSerializer, PurchaseOrderSerializer, CustomUserSe
 from .models import Vendor, PurchaseOrder
 from django.db import connection
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 
 def dashboard_view(request):
     # Your dashboard logic here
-    return render(request, 'index.html', context={'key': 'value'})
+    return render(request, 'index.html')
 
-def faqs_view(request):
-    # Your dashboard logic here
-    return render(request, 'faqs.html', context={'key': 'value'})
-
-def about_view(request):
-    # Your dashboard logic here
-    return render(request, 'about.html', context={'key': 'value'})
 
 def login_view(request):
     # Your dashboard logic here
@@ -41,16 +35,18 @@ class UserRegistrationView(CreateAPIView):
 
         user = serializer.save()
 
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
+        # refresh = RefreshToken.for_user(user)
+        # access_token = str(refresh.access_token)
 
         
-        context = {
-            'access_token': access_token,
-            'user': CustomUserSerializer(user).data,
-        }
+        # context = {
+        #     'access_token': access_token,
+        #     'user': CustomUserSerializer(user).data,
+        # }
 
-        return Response(context, status = status.HTTP_201_CREATED)
+        # return Response(context, status = status.HTTP_201_CREATED)
+        return redirect('login_view/')
+
 
 
 # Vendor Logic Start Here

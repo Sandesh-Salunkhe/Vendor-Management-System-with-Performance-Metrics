@@ -1,28 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 from django.utils import timezone
 import datetime
-import random
-import string
 import time
-import uuid
 # Create your models here.
-
-# PLAN = (
-#     ("BASIC,", "Basic"),
-#     ("PRO,", "Pro"),
-#     ("ENTERPRISE", "Enterprise")
-# )
 
 
 class SubscriptionPlan(models.Model):
-    # name = models.CharField(max_length=50, default=PLAN[0][1], choices=PLAN)
     name = models.CharField(max_length=50)
     duration_months = models.IntegerField()
     price = models.IntegerField()
     
-
-
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=80, unique=True)
@@ -33,22 +22,30 @@ class CustomUser(AbstractUser):
     address = models.TextField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
-    purchased_at = models.DateTimeField(auto_now_add=True)
-    expired_at = models.DateTimeField(auto_now_add=True)
+    purchased_at = models.DateTimeField(auto_now_add=True, blank=True)
+    expired_at = models.DateTimeField(auto_now_add=True, blank=True)
     payment = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
 
-    # def __str__(self):
-    #     return f"{self.name} - {self.duration_months} months"
-
     def save(self, *args, **kwargs):
-        # Set the expired_at field based on the current time and duration
-        if not self.expired_at:
+        
+        if self.subscription_plan.name == 'null':
+            self.subscription_plan.name = "Free Plan"
+            self.purchased_at = timezone.now()
+            self.expired_at = timezone.now() + datetime.timedelta(days=7)
+        else:
+            self.purchased_at = timezone.now()
+
             self.expired_at = timezone.now() + datetime.timedelta(
-                days=30.44 * self.duration_months
+                days=30.44 * self.subscription_plan.duration_months
             )
+
         super().save(*args, **kwargs)
+        
+
+    
 
 class Vendor(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
