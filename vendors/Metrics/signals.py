@@ -25,20 +25,24 @@ def update_vendor_on_time_delivery_rate(sender, instance, **kwargs):
     print("Signals -->> Purchase order created")
     
 
-# @receiver(pre_save, sender=CustomUser)
-# def set_expired_at(sender, instance, *args, **kwargs):
-      
-#     if kwargs.get('created', False):
+@receiver(pre_save, sender=CustomUser)
+def set_free_plan(sender, instance, *args, **kwargs):
+    if kwargs.get('created', False):
+        plan = SubscriptionPlan.objects.get(name="Free Plan")
+        instance.subscription_plan.name = plan
+        instance.purchased_at = timezone.now()
+        duration_months = plan.duration_months
+        print(f"Duration Months: {duration_months}")
+        print(f"Current Time: {timezone.now()}")
+        # instance.expired_at = timezone.now() + datetime.timedelta(
+        #     days=30.44 * duration_months
+        # )
 
-#         instance.subscription_plan.name = SubscriptionPlan.objects.get(name="Free Plan")
-#         instance.purchased_at = timezone.now()
-#         instance.expired_at = timezone.now() + datetime.timedelta(days=7)
+        # print("Signal triggered!")  # Add this line to check if the signal is triggered
+        # print(instance.purchased_at)  # Add this line to check the purchased_at value
+        # print(instance.expired_at) 
+        instance.save()
 
-#     elif kwargs.get('update_fields', None):
-
-#         instance.expired_at = timezone.now() + datetime.timedelta(
-#             days=30.44 * instance.duration_months
-#         )
 
 
 @receiver(pre_save, sender=Vendor)

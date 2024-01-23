@@ -21,28 +21,13 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
-    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
-    purchased_at = models.DateTimeField(auto_now_add=True, blank=True)
-    expired_at = models.DateTimeField(auto_now_add=True, blank=True)
+    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True,)
+    purchased_at = models.DateTimeField(auto_now_add=True, null=True,blank=True)
+    expired_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     payment = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
-
-    def save(self, *args, **kwargs):
-        
-        if self.subscription_plan.name == 'null':
-            self.subscription_plan.name = "Free Plan"
-            self.purchased_at = timezone.now()
-            self.expired_at = timezone.now() + datetime.timedelta(days=7)
-        else:
-            self.purchased_at = timezone.now()
-
-            self.expired_at = timezone.now() + datetime.timedelta(
-                days=30.44 * self.subscription_plan.duration_months
-            )
-
-        super().save(*args, **kwargs)
         
 
     
