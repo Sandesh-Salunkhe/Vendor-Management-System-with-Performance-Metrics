@@ -4,13 +4,13 @@ from .models import *
 
 
 @admin.register(SubscriptionPlan)
-class VendorAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'purchased_at', 'duration_months','expired_at','payment')
+class Subscription(admin.ModelAdmin):
+    list_display = ('id','name','duration_months','price')
     # readonly_fields = ('','')
     
 @admin.register(CustomUser)
-class VendorAdmin(admin.ModelAdmin):
-    list_display = ('id','username', 'email', 'company_name','profile_picture','phone_number','address','bio','subscription_plan')
+class CustomUser(admin.ModelAdmin):
+    list_display = ('id','username', 'email', 'company_name','profile_picture','phone_number','address','bio','subscription_plan','purchased_at','expired_at')
     # readonly_fields = ('','')
     
 @admin.register(Vendor)

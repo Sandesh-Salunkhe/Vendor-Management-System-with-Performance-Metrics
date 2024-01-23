@@ -8,31 +8,20 @@ import time
 import uuid
 # Create your models here.
 
-PLAN = (
-    ("BASIC,", "Basic"),
-    ("PRO,", "Pro"),
-    ("ENTERPRISE", "Enterprise")
-)
+# PLAN = (
+#     ("BASIC,", "Basic"),
+#     ("PRO,", "Pro"),
+#     ("ENTERPRISE", "Enterprise")
+# )
 
 
 class SubscriptionPlan(models.Model):
-    name = models.CharField(max_length=50, default=PLAN[0][1], choices=PLAN)
-    purchased_at = models.DateTimeField(auto_now_add=True)
+    # name = models.CharField(max_length=50, default=PLAN[0][1], choices=PLAN)
+    name = models.CharField(max_length=50)
     duration_months = models.IntegerField()
-    expired_at = models.DateTimeField(auto_now_add=True)
-    payment = models.BooleanField(default=False)
+    price = models.IntegerField()
+    
 
-
-    def __str__(self):
-        return f"{self.name} - {self.duration_months} months"
-
-    def save(self, *args, **kwargs):
-        # Set the expired_at field based on the current time and duration
-        if not self.expired_at:
-            self.expired_at = timezone.now() + datetime.timedelta(
-                days=30.44 * self.duration_months
-            )
-        super().save(*args, **kwargs)
 
 
 class CustomUser(AbstractUser):
@@ -43,14 +32,23 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
-    subscription_plan = models.ForeignKey(
-        SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
-
+    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
+    purchased_at = models.DateTimeField(auto_now_add=True)
+    expired_at = models.DateTimeField(auto_now_add=True)
+    payment = models.BooleanField(default=False)
     def __str__(self):
         return self.username
 
+    # def __str__(self):
+    #     return f"{self.name} - {self.duration_months} months"
 
-
+    def save(self, *args, **kwargs):
+        # Set the expired_at field based on the current time and duration
+        if not self.expired_at:
+            self.expired_at = timezone.now() + datetime.timedelta(
+                days=30.44 * self.duration_months
+            )
+        super().save(*args, **kwargs)
 
 class Vendor(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
