@@ -10,6 +10,7 @@ from .models import Vendor, PurchaseOrder
 from django.db import connection
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
+from django.views.generic import RedirectView
 
 
 
@@ -30,12 +31,17 @@ class UserRegistrationView(CreateAPIView):
     serializer_class = CustomUserSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
 
-        user = serializer.save()
-
-        # refresh = RefreshToken.for_user(user)
+            user = serializer.save()
+            
+            return Response({'Success': True})
+        except Exception as e:
+            print("Error saving",e)
+            return Response({'Success': False, 'message': str(e)})
+# refresh = RefreshToken.for_user(user)
         # access_token = str(refresh.access_token)
 
         
@@ -45,8 +51,6 @@ class UserRegistrationView(CreateAPIView):
         # }
 
         # return Response(context, status = status.HTTP_201_CREATED)
-        return redirect('login_view/')
-
 
 
 # Vendor Logic Start Here

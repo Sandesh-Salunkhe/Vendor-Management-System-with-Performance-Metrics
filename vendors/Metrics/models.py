@@ -15,7 +15,7 @@ class SubscriptionPlan(models.Model):
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=80, unique=True)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
     company_name = models.CharField(max_length=255, null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)

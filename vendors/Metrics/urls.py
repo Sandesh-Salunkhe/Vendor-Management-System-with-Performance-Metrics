@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('', dashboard_view, name='dashboard'),
     path('register-page/', register_page, name='register-page'),
-    path('login_view/', login_view, name='login_view'),
+    path('login/', login_view, name='login_view'),
 
 
     # path('login/', TokenObtainPairView, name='login'),
