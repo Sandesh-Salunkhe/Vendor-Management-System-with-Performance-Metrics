@@ -10,6 +10,7 @@ urlpatterns = [
     path('', dashboard_view, name='dashboard'),
     path('register-page/', register_page, name='register-page'),
     path('login/', login_view, name='login_view'),
+    path('profile/', profile_view, name='profile'),
 
 
     # path('login/', TokenObtainPairView, name='login'),

@@ -23,6 +23,10 @@ def login_view(request):
     # Your dashboard logic here
     return render(request, 'login.html', context={'key': 'value'})
 
+def profile_view(request):
+    # Your dashboard logic here
+    return render(request, 'profile-page.html', context={'key': 'value'})
+
 def register_page(request):
     # Your dashboard logic here
     return render(request, 'register-page.html', context={'key': 'value'})
